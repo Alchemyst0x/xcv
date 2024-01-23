@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "xcv"
+version = "0.1.0"
+authors = ["Alchemyst0x <alchemyst@blockmage.org>"]
+description = "A simple clipboard utility to convert text to/from Private Use Area characters."
+license = "MIT"
+
+[dependencies]
+arboard = "3.3.0"
