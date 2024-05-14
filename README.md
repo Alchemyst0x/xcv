@@ -1,3 +1,29 @@
+## Updated 2024-05-14
+
+Updating this repo to include the following shell functions snippet, as it's what I have aliased in my own dotfiles & offers a far simpler alternative. This repo was just a random excuse to do something in Rust (of which I have very, very little experience in ha) 🙂
+
+```bash
+function tag_c() {
+    local input_txt="${*:-$(
+        read -r -p "Enter the text to convert and copy: " txt
+        echo "${txt}"
+    )}"
+
+    fades -d pyperclip --exec python -c "import sys; import pyperclip;\
+        pyperclip.copy(''.join(chr(0xE0000 + ord(ch)) for ch in \
+        ' '.join(sys.argv[1:])))" "${input_txt}" &&
+        echo "Converted text & copied converted text to clipboard."
+}
+
+function tag_v() { fades -d pyperclip --exec python -c "import pyperclip; print(''.join(chr(ord(ch) - 0xE0000) for ch in pyperclip.paste()))"; }
+```
+
+You'll need to install [fades](https://github.com/PyAr/fades) to make use of this. Just alias it somewhere and source the file in your own shell's *rc file. 
+
+Enjoy. 😉
+
+---
+
 # XCV Prompt Injection Clipboard Utility
 
 XCV is a straightforward clipboard utility designed to convert text to and from [Private Use Area characters](https://en.wikipedia.org/wiki/Private_Use_Areas) (Wikipedia). These are characters that cannot be visibly seen, but LLMs can see plainly. A Twitter thread about AI prompt injection, which I learned about from the [Critical Thinking - Bug Bounty Podcast](https://open.spotify.com/show/4GiJnv8f4a4ZR6Jc6TQJ3k?si=e52b963f9c6d4f69) (link goes to Spotify), inspired it.
